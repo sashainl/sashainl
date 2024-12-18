@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체스 킹 소개</title>
+    <link rel="stylesheet" href="/CSS/css/Chess.css">
+    <link rel="stylesheet" href="/CSS/css/Chess_Piece.css">
+</head>
+<body>
+    <div class="bg" style="height: inherit;"></div>
+
+    <div class="container" style="margin-top: 90px;">
+        <img src="/img/chess_Img/Learn more/kingt.png" alt=""> <br>
+        <img src="/img/chess_Img/king.png" alt="체스 킹" >
+        <h1>체스 기물: 킹 (King)</h1>
+        <p>
+            킹은 체스에서 가장 중요한 기물입니다. 킹이 체크메이트될 경우 게임이 끝나므로, 킹을 보호하는 것이 매우 중요합니다. 킹은 한 번에 한 칸씩 모든 방향으로 이동할 수 있습니다.
+        </p>
+        <p>
+            킹은 다른 기물들과 협력하여 안전한 위치에 있어야 하며, 특히 "캐슬링"이라는 특수 이동을 통해 룩과 함께 안전한 위치로 이동할 수 있습니다. 이 이동은 게임 중 킹의 안전을 확보하는 중요한 전략 중 하나입니다.
+        </p>
+        <p>
+            킹은 일반적으로 공격보다는 방어적인 역할을 수행하며, 게임 후반부에 상대의 폰을 잡거나 직접 전진하여 승리하는 데 기여할 수 있습니다. 킹을 안전하게 보호하면서도 적절히 활용하는 것이 체스 게임의 핵심 전략입니다.
+        </p>
+        <a href="https://www.chess.com/learn-how-to-play-chess" target="_blank" class="btn">체스 규칙 더 알아보기</a>
+    </div>
+
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- 스크립트: 마우스 움직임에 따른 커서 효과 -->
+    <div class="custom-cursor" id="cursor"></div>
+
+
+    <!-- 스크립트: 마우스 움직임에 따른 체스 기물 생성 -->
+    <script>
+        const cursor = document.getElementById('cursor');
+
+
+        // 마우스 클릭 시 포인터 색상 변경
+        document.addEventListener('mousedown', () => {
+            cursor.style.backgroundColor = '#00ff00'; // 클릭 시 색상: 초록색
+        });
+
+        // 마우스 클릭 해제 시 원래 색상으로 돌아감
+        document.addEventListener('mouseup', () => {
+            cursor.style.backgroundColor = '#ff0000'; // 기본 색상: 빨간색
+        });
+
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX - 3 + 'px';
+            cursor.style.top = e.pageY + 2 + 'px';
+        });
+
+        document.addEventListener('click', (e) => {
+            e.stopPropagation(); // 클릭 이벤트가 버블링되지 않도록 설정
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let idleInterval;
+        let lastMoveTime = 0;
+
+        const chessPieces = ['king', 'queen', 'rook', 'bishop', 'knight'];
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+
+            const now = Date.now();
+            if (now - lastMoveTime > 200) {
+                createChessPiece();
+                lastMoveTime = now;
+            }
+
+            resetIdleInterval();
+        });
+
+        function resetIdleInterval() {
+            clearInterval(idleInterval);
+            idleInterval = setInterval(() => {
+                createChessPiece();
+            }, 10000); // 7초로 설정
+        }
+
+        function createChessPiece() {
+            const piece = document.createElement('div');
+            const pieceType = chessPieces[Math.floor(Math.random() * chessPieces.length)];
+            piece.classList.add('chess-piece', pieceType);
+
+            const randomRotation = (Math.random() * 1440 - 720) + 'deg';
+            piece.style.setProperty('--rotation-angle', randomRotation);
+
+            document.body.appendChild(piece);
+            piece.style.left = `${mouseX}px`;
+            piece.style.top = `${mouseY}px`;
+
+            setTimeout(() => {
+                piece.style.opacity = '1';
+                piece.style.animation = 'fall 2s forwards';
+                checkPiecePosition(piece);
+                piece.addEventListener('animationend', () => {
+                    piece.remove();
+                });
+                
+            }, 200);
+        }
+        function checkPiecePosition(piece) {
+            function check() {
+                const pieceRect = piece.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (pieceRect.top > windowHeight - 90) { // 기물이 화면 하단에 도달했는지 확인
+                    piece.remove(); // 기물을 삭제
+                } else {
+                    requestAnimationFrame(check); // 계속해서 위치를 확인
+                }
+            }
+
+            requestAnimationFrame(check); // 최초 호출
+        }
+        
+    </script></body>
+</html>

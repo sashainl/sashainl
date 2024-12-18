@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Poker</title>
+    
+    <link rel="stylesheet" href="css/common.css">
+
+</head>
+<body>
+    <div id="wrap">
+        <header id="header"> poker</header>
+        <main><div class="img1"></div></main>
+
+        <section id="content1">
+            <nav class="nav"></nav>
+            <article class="article_right1"></article>
+            
+        </section>
+
+        <section id="content2">
+            <article class="article_box1"></article>
+            <article class="article_box2"></article>
+            <article class="article_box3"></article>
+            <article class="article_box4"></article>
+        </section>
+
+        <section id="content3">
+            <a href="https://www.youtube.com/@2ace"><article class="article_square1"></article></a>
+            <a href="https://www.instagram.com/acepokerleague/"><article class="article_square2"></article></a>
+            <a href="https://www.tiktok.com/tag/%ED%8F%AC%EC%BB%A4"><article class="article_square3"></article></a>
+            
+        </section>
+        
+        <footer id="footer" >
+            <a href="https://poker.hangame.com/" style="text-decoration: none;">게임하러가기</a>
+        </footer>
+    </div>
+    <script>
+        let lastCreateTime = 0; // 마지막 이미지 생성 시간
+      
+        document.addEventListener("mousemove", (event) => {
+          const now = Date.now();
+          if (now - lastCreateTime > 400) { // 400ms 간격으로 이미지 생성
+            createFallingImage(event.clientX, event.clientY);
+            lastCreateTime = now;
+          }
+        });
+      
+        function createFallingImage(x, y) {
+          const nikeImage = document.createElement("img");
+          nikeImage.src = "img/K.PNG"; // 나이키 로고 이미지 경로
+          nikeImage.className = "falling-image";
+      
+          // 이미지의 초기 위치 설정
+          nikeImage.style.position = "absolute"; // 위치 지정
+          nikeImage.style.left = `${x + window.scrollX}px`; // 스크롤 값을 더해 정확한 위치 계산
+          nikeImage.style.top = `${y + window.scrollY}px`; // 스크롤 값을 더해 정확한 위치 계산
+      
+          // 이미지 크기 및 회전 설정
+          const size = Math.random() * 30 + 20; // 크기: 20px ~ 50px
+          nikeImage.style.width = `${size}px`;
+          nikeImage.style.height = `${size}px`;
+          const rotation = Math.random() * 360; // 랜덤 회전
+          nikeImage.style.transform = `rotate(${rotation}deg)`;
+      
+          // 이미지 추가
+          document.body.appendChild(nikeImage);
+      
+          // 이미지 떨어지는 애니메이션
+          let fallDistance = 0; // 떨어진 거리
+          const fallSpeed = 2 + Math.random() * 3; // 랜덤 속도
+      
+          function animate() {
+            // 이미지가 화면 하단에 닿으면 제거
+            if (nikeImage.getBoundingClientRect().bottom >= window.innerHeight) {
+              nikeImage.remove();
+              return;
+            }
+      
+            // 이미지 위치 업데이트
+            nikeImage.style.top = `${y + window.scrollY + fallDistance}px`;
+      
+            fallDistance += fallSpeed; // 떨어지는 거리 증가
+            requestAnimationFrame(animate); // 애니메이션 프레임 요청
+          }
+      
+          animate(); // 애니메이션 시작
+        }
+      </script>
+      
+</body>
+</html>
+

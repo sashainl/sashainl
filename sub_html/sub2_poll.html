@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문조사</title>
+    <link rel="stylesheet" href="/CSS/css/sub_html.css">
+
+</head>
+<body>
+    <div class="bg" style="height: 1600px;"></div>
+
+    <div class="wrap">
+        <header>
+            <h2>설문조사</h2>
+        </header>
+
+        <main>
+            <form name="설문" action="">
+                <fieldset>
+                    <label for="name">이름:</label>
+                    <input type="text" id="name" name="name" placeholder="홍길동" required>
+
+                    <label>성별:</label>
+                    <input type="radio" name="sex" value="male"> 남
+                    <input type="radio" name="sex" value="female"> 여
+
+                    <label for="birth">생년월일:</label>
+                    <input type="text" id="birth" name="birth" placeholder="YYYY-MM-DD">
+
+                    <label for="email">이메일:</label>
+                    <input type="email" id="email" name="email" placeholder="comgild@nate.com" required>
+
+                    <label for="address">주소:</label>
+                    <input type="text" id="address" name="address" placeholder="서울시 강남구...">
+
+                    <label>1. 당신이 가장 좋아하는 체스 기물은?</label>
+                    <input type="checkbox" name="wine_type" value="킹"> 킹(king)
+                    <input type="checkbox" name="wine_type" value="퀸"> 퀸(queen)
+                    <input type="checkbox" name="wine_type" value="비숍"> 비숍(bishop)
+                    <input type="checkbox" name="wine_type" value="나이트"> 나이트(knight)
+                    <input type="checkbox" name="wine_type" value="룩"> 룩(look)
+                    <br>
+                    <input type="checkbox" name="wine_type" value="폰"> 폰(pawn)
+
+
+                    <label>2. 당신이 가장 싫어하는 체스 기물은?</label>
+                    <input type="radio" name="wine_type" value="킹"> 킹(king)
+                    <input type="radio" name="wine_type" value="퀸"> 퀸(queen)
+                    <input type="radio" name="wine_type" value="비숍"> 비숍(bishop)
+                    <input type="radio" name="wine_type" value="나이트"> 나이트(knight)
+                    <input type="radio" name="wine_type" value="룩"> 룩(look)
+                    <br>
+                    <input type="radio" name="wine_type" value="폰"> 폰(pawn)
+
+
+                    <label for="country">3. 체스를 배워보고 싶은 나라는?</label>
+                    <select name="country" id="country">
+                        <option value="italy">이탈리아</option>
+                        <option value="chile">칠레</option>
+                        <option value="spain" selected>스페인</option>
+                        <option value="australia">호주</option>
+                        <option value="other">기타</option>
+                    </select>
+
+                    <label for="snack">4. 가장 좋아하는 오프닝은?</label>
+                    <select name="snack" id="snack" size="6" multiple>
+                        <option value="1" selected>이탈리아 오프닝</option>
+                        <option value="2">스페인 오프닝</option>
+                        <option value="3">시실리안 디펜스</option>
+                        <option value="4">퀸즈 갬빗</option>
+                        <option value="5">카로-칸 디펜스</option>
+                        <option value="6">프렌치 디펜스</option>
+                        <option value="7">기타</option>
+                    </select>
+
+                    <label for="date">5. 체스를 시작한 날은?</label>
+                    <input type="date" id="date" name="date">
+
+                    <label for="message">6. 이 사이트의 개선점 (불편한 점 / 바라는 점)</label>
+                    <textarea name="introduction" id="message" cols="30" rows="5"></textarea>
+
+                    <div class="btn-container">
+                        <input type="submit" value="완료" class="btn">
+                        <input type="reset" value="다시" class="btn">
+                    </div>
+                </fieldset>
+            </form>
+        </main>
+    </div>
+    <div class="custom-cursor" id="cursor"></div>
+
+
+    <!-- 스크립트: 마우스 움직임에 따른 체스 기물 생성 -->
+    <script>
+        const cursor = document.getElementById('cursor');
+
+
+        // 마우스 클릭 시 포인터 색상 변경
+        document.addEventListener('mousedown', () => {
+            cursor.style.backgroundColor = '#00ff00'; // 클릭 시 색상: 초록색
+        });
+
+        // 마우스 클릭 해제 시 원래 색상으로 돌아감
+        document.addEventListener('mouseup', () => {
+            cursor.style.backgroundColor = '#ff0000'; // 기본 색상: 빨간색
+        });
+
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX - 3 + 'px';
+            cursor.style.top = e.pageY + 2 + 'px';
+        });
+
+        document.addEventListener('click', (e) => {
+            e.stopPropagation(); // 클릭 이벤트가 버블링되지 않도록 설정
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let idleInterval;
+        let lastMoveTime = 0;
+
+        const chessPieces = ['king', 'queen', 'rook', 'bishop', 'knight'];
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+
+            const now = Date.now();
+            if (now - lastMoveTime > 200) {
+                createChessPiece();
+                lastMoveTime = now;
+            }
+
+            resetIdleInterval();
+        });
+
+        function resetIdleInterval() {
+            clearInterval(idleInterval);
+            idleInterval = setInterval(() => {
+                createChessPiece();
+            }, 7000); // 7초로 설정
+        }
+
+        function createChessPiece() {
+            const piece = document.createElement('div');
+            const pieceType = chessPieces[Math.floor(Math.random() * chessPieces.length)];
+            piece.classList.add('chess-piece', pieceType);
+
+            const randomRotation = (Math.random() * 1440 - 720) + 'deg';
+            piece.style.setProperty('--rotation-angle', randomRotation);
+
+            document.body.appendChild(piece);
+            piece.style.left = `${mouseX}px`;
+            piece.style.top = `${mouseY}px`;
+
+            setTimeout(() => {
+                piece.style.opacity = '1';
+                piece.style.animation = 'fall 2s forwards';
+                checkPiecePosition(piece);
+                piece.addEventListener('animationend', () => {
+                    piece.remove();
+                });
+                
+            }, 200);
+        }
+        function checkPiecePosition(piece) {
+            function check() {
+                const pieceRect = piece.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (pieceRect.top > windowHeight - 90) { // 기물이 화면 하단에 도달했는지 확인
+                    piece.remove(); // 기물을 삭제
+                } else {
+                    requestAnimationFrame(check); // 계속해서 위치를 확인
+                }
+            }
+
+            requestAnimationFrame(check); // 최초 호출
+        }
+        
+    </script>
+
+</body>
+</html>

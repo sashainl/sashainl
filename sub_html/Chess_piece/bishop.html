@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체스 비숍 소개</title>
+    <link rel="stylesheet" href="/CSS/css/Chess.css">
+    <link rel="stylesheet" href="/CSS/css/Chess_Piece.css">
+</head>
+<body>
+    <div class="bg" style="height: inherit;"></div>
+    <div class="container" style="margin-top: 90px;">
+        <img src="/img/chess_Img/Learn more/bishop.png" alt=""> <br>
+        <img src="/img/chess_Img/bishop_split_transparent.png" alt="체스 비숍">
+        <h1>체스 기물: 비숍 (Bishop)</h1>
+        <p>비숍은 체스에서 중요한 장기 기물로, 대각선 방향으로 원하는 만큼 이동할 수 있습니다. 비숍은 항상 자신이 시작한 색상의 칸 위에서만 움직일 수 있어, 체스판의 절반을 담당하게 됩니다. 비숍은 대각선으로 이동할 수 있는 능력 덕분에 장기적인 압박과 공격에 강력한 역할을 합니다.</p>
+        <p>비숍은 특히 열린 대각선에서 강력한 힘을 발휘하며, 상대의 주요 기물과 폰을 위협하는 데 유용합니다. 두 비숍이 함께 작동할 때, 체스판 전체를 강력하게 제어할 수 있어 공격과 방어 모두에서 큰 역할을 합니다.</p>
+        <p>비숍은 일반적으로 폰의 뒤에서 지원하며, 상대방의 대각선 공격을 방어하거나 중요한 위치에서 압박을 가할 수 있습니다. 게임 초반에는 비숍을 개발해 중앙으로 향하는 대각선을 차지하는 것이 중요하며, 이는 중반과 후반에 강력한 공격 기회를 만들어낼 수 있습니다.</p>
+        <a href="https://www.chess.com/learn-how-to-play-chess" target="_blank" class="btn">비숍 사용법 더 알아보기</a>
+    </div>
+
+    <div class="custom-cursor" id="cursor"></div>
+
+
+    <!-- 스크립트: 마우스 움직임에 따른 체스 기물 생성 -->
+    <script>
+        const cursor = document.getElementById('cursor');
+
+
+        // 마우스 클릭 시 포인터 색상 변경
+        document.addEventListener('mousedown', () => {
+            cursor.style.backgroundColor = '#00ff00'; // 클릭 시 색상: 초록색
+        });
+
+        // 마우스 클릭 해제 시 원래 색상으로 돌아감
+        document.addEventListener('mouseup', () => {
+            cursor.style.backgroundColor = '#ff0000'; // 기본 색상: 빨간색
+        });
+
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX - 3 + 'px';
+            cursor.style.top = e.pageY + 2 + 'px';
+        });
+
+        document.addEventListener('click', (e) => {
+            e.stopPropagation(); // 클릭 이벤트가 버블링되지 않도록 설정
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let idleInterval;
+        let lastMoveTime = 0;
+
+        const chessPieces = ['king', 'queen', 'rook', 'bishop', 'knight'];
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+
+            const now = Date.now();
+            if (now - lastMoveTime > 200) {
+                createChessPiece();
+                lastMoveTime = now;
+            }
+
+            resetIdleInterval();
+        });
+
+        function resetIdleInterval() {
+            clearInterval(idleInterval);
+            idleInterval = setInterval(() => {
+                createChessPiece();
+            }, 10000); // 7초로 설정
+        }
+
+        function createChessPiece() {
+            const piece = document.createElement('div');
+            const pieceType = chessPieces[Math.floor(Math.random() * chessPieces.length)];
+            piece.classList.add('chess-piece', pieceType);
+
+            const randomRotation = (Math.random() * 1440 - 720) + 'deg';
+            piece.style.setProperty('--rotation-angle', randomRotation);
+
+            document.body.appendChild(piece);
+            piece.style.left = `${mouseX}px`;
+            piece.style.top = `${mouseY}px`;
+
+            setTimeout(() => {
+                piece.style.opacity = '1';
+                piece.style.animation = 'fall 2s forwards';
+                checkPiecePosition(piece);
+                piece.addEventListener('animationend', () => {
+                    piece.remove();
+                });
+                
+            }, 200);
+        }
+        function checkPiecePosition(piece) {
+            function check() {
+                const pieceRect = piece.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (pieceRect.top > windowHeight - 90) { // 기물이 화면 하단에 도달했는지 확인
+                    piece.remove(); // 기물을 삭제
+                } else {
+                    requestAnimationFrame(check); // 계속해서 위치를 확인
+                }
+            }
+
+            requestAnimationFrame(check); // 최초 호출
+        }
+        
+    </script></body>
+</html>

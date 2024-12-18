@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체스 폰 소개</title>
+    <link rel="stylesheet" href="/CSS/css/Chess.css">
+    <link rel="stylesheet" href="/CSS/css/Chess_Piece.css">
+</head>
+<body>
+    <div class="bg" style="height: inherit;"></div>
+    <div class="container" style="margin-top: 90px;">
+        <img src="/img/chess_Img/Learn more/pawn.png" alt=""> <br>
+        <img src="/img/chess_Img/pawn.png" alt="체스 폰">
+        <h1>체스 기물: 폰 (Pawn)</h1>
+        <p>폰은 체스에서 가장 기본적이고 많은 수를 차지하는 기물입니다. 폰은 한 번에 한 칸씩 앞으로만 이동할 수 있지만, 처음 이동할 때는 두 칸을 전진할 수 있습니다. 폰은 상대의 기물을 잡을 때 대각선 방향으로 이동하며, 공격과 수비 양면에서 중요한 역할을 합니다.</p>
+        <p>폰은 체스 게임의 초반에는 방어적인 역할을 수행하며, 상대방의 공격을 막는 중요한 방패 역할을 합니다. 그러나 게임 후반에 폰이 상대 진영 끝까지 전진하게 되면, 퀸이나 다른 기물로 승격할 수 있어 게임의 흐름을 크게 바꿀 수 있습니다.</p>
+        <p>폰은 일반적으로 초반에는 중앙으로 전진하여 체스판의 중요한 부분을 장악하려고 합니다. 폰 구조는 체스 게임에서 매우 중요한 전략 요소로, 각 폰의 위치와 상호 지원은 공격과 방어를 결정짓는 핵심 요소입니다. 폰의 올바른 전진과 보호는 게임에서 우위를 점하는 중요한 요소입니다.</p>
+        <a href="https://www.chess.com/learn-how-to-play-chess" target="_blank" class="btn">폰 사용법 더 알아보기</a>
+    </div>
+
+    <div class="custom-cursor" id="cursor"></div>
+
+
+    <!-- 스크립트: 마우스 움직임에 따른 체스 기물 생성 -->
+    <script>
+        const cursor = document.getElementById('cursor');
+
+
+        // 마우스 클릭 시 포인터 색상 변경
+        document.addEventListener('mousedown', () => {
+            cursor.style.backgroundColor = '#00ff00'; // 클릭 시 색상: 초록색
+        });
+
+        // 마우스 클릭 해제 시 원래 색상으로 돌아감
+        document.addEventListener('mouseup', () => {
+            cursor.style.backgroundColor = '#ff0000'; // 기본 색상: 빨간색
+        });
+
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX - 3 + 'px';
+            cursor.style.top = e.pageY + 2 + 'px';
+        });
+
+        document.addEventListener('click', (e) => {
+            e.stopPropagation(); // 클릭 이벤트가 버블링되지 않도록 설정
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let idleInterval;
+        let lastMoveTime = 0;
+
+        const chessPieces = ['king', 'queen', 'rook', 'bishop', 'knight'];
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+
+            const now = Date.now();
+            if (now - lastMoveTime > 200) {
+                createChessPiece();
+                lastMoveTime = now;
+            }
+
+            resetIdleInterval();
+        });
+
+        function resetIdleInterval() {
+            clearInterval(idleInterval);
+            idleInterval = setInterval(() => {
+                createChessPiece();
+            }, 10000); // 7초로 설정
+        }
+
+        function createChessPiece() {
+            const piece = document.createElement('div');
+            const pieceType = chessPieces[Math.floor(Math.random() * chessPieces.length)];
+            piece.classList.add('chess-piece', pieceType);
+
+            const randomRotation = (Math.random() * 1440 - 720) + 'deg';
+            piece.style.setProperty('--rotation-angle', randomRotation);
+
+            document.body.appendChild(piece);
+            piece.style.left = `${mouseX}px`;
+            piece.style.top = `${mouseY}px`;
+
+            setTimeout(() => {
+                piece.style.opacity = '1';
+                piece.style.animation = 'fall 2s forwards';
+                checkPiecePosition(piece);
+                piece.addEventListener('animationend', () => {
+                    piece.remove();
+                });
+                
+            }, 200);
+        }
+        function checkPiecePosition(piece) {
+            function check() {
+                const pieceRect = piece.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (pieceRect.top > windowHeight - 90) { // 기물이 화면 하단에 도달했는지 확인
+                    piece.remove(); // 기물을 삭제
+                } else {
+                    requestAnimationFrame(check); // 계속해서 위치를 확인
+                }
+            }
+
+            requestAnimationFrame(check); // 최초 호출
+        }
+        
+    </script>
+    </body>
+</html>

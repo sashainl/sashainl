@@ -1,0 +1,201 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    cursor: none;
+  }
+
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+  }
+
+  .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 150%;
+      height: 900px;
+      background-image: url('../../chess_Img/free-vector-seamless-repeating-pattern-background_927442-10.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.4;
+      z-index: -1;
+  }
+
+  .wrap {
+      background-color: #ffffffcc;
+      width: 90%;
+      max-width: 700px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 50px;
+  }
+
+  header h2 {
+      font-size: 2em;
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+  }
+
+  fieldset {
+      border: 1px solid #8b8b8b;
+      border-radius: 10px;
+      padding: 20px 30px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+      font-weight: 800;
+      color: #444;
+      display: block;
+      margin-top: 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="date"],
+  textarea,
+  select {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #8b8b8b;
+      border-radius: 5px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+      margin-right: 10px;
+      margin-top: 10px;
+  }
+
+  textarea {
+      resize: vertical;
+  }
+
+  select {
+      width: auto;
+      padding: 10px;
+  }
+
+  .btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+  }
+
+  input[type="submit"].btn {
+      background-color: #4CAF50;
+  }
+
+  input[type="reset"].btn {
+      background-color: #f44336;
+  }
+
+  input[type="submit"].btn:hover {
+      background-color: #45a049;
+  }
+
+  input[type="reset"].btn:hover {
+      background-color: #d32f2f;
+  }
+
+  .btn-container {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 20px;
+  }
+  .chess-piece {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    transition: opacity 0.5s ease-out, transform 0.2s ease-out;
+    z-index: 9999; /* 마우스 기물을 맨 앞으로 배치 */
+    transform: translate(-50%, -50%); /* 기물이 마우스 중앙에 위치하도록 조정 */
+}
+
+.custom-cursor {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #ff0000;
+    pointer-events: none;
+    transition: background-color 0.2s ease;
+    z-index: 1000;
+}
+
+.king { background: url('../../chess_Img/king.png') no-repeat center/contain; }
+.queen { background: url('../../chess_Img/queen_split_transparent.png') no-repeat center/contain; }
+.rook { background: url('../../chess_Img/rook_split_transparent.png') no-repeat center/contain; }
+.bishop { background: url('../../chess_Img/bishop_split_transparent.png') no-repeat center/contain; }
+.knight { background: url('../../chess_Img/knight_split_transparent.png') no-repeat center/contain; }
+
+@keyframes fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(50vh) rotate(var(--rotation-angle));
+    }
+}
+.btn-container input[type="submit"], 
+        .btn-container input[type="reset"] {
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: none;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* 부드러운 전환 */
+        }
+
+        /* 버튼 호버 시 효과 */
+        .btn-container input[type="submit"]:hover, 
+        .btn-container input[type="reset"]:hover {
+            background-color: #0056b3; /* 어두운 파란색으로 변경 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+            transform: translateY(-2px); /* 살짝 위로 올라가는 효과 */
+        }
+
+        /* 버튼 클릭 시 눌리는 효과 */
+        .btn-container input[type="submit"]:active, 
+        .btn-container input[type="reset"]:active {
+            transform: scale(0.95); /* 살짝 축소 효과 */
+            background-color: #003f7f; /* 더 어두운 파란색 */
+        }
+
+        /* 가입하기 버튼에만 추가 스타일 */
+        .btn-container input[type="submit"] {
+            background-color: #28a745; /* 기본 초록색 */
+        }
+
+        /* 가입하기 버튼 호버 시 */
+        .btn-container input[type="submit"]:hover {
+            background-color: #218838; /* 호버 시 어두운 초록색 */
+        }
+
+        /* 가입하기 버튼 클릭 시 */
+        .btn-container input[type="submit"]:active {
+            background-color: #1e7e34; /* 더 어두운 초록색 */
+        }

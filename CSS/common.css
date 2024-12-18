@@ -1,0 +1,85 @@
+ * {margin: 0; padding: 0;}
+body {}
+#wrap{width: 1200px; margin: 0 auto;}
+        
+    #header,#footer {width: 100%; height: 100px; background-color: #535353; color: #e3f2fd; text-align: center; font-size: 42px; line-height: 100px;}
+    main{width: 100%; height: 600px; }
+    .img1 {width: 100%;
+        height: 100%; /* 부모 요소를 가득 채우도록 설정 */
+        background: url('/img/focard_main.jpg') no-repeat center center; /* 배경 이미지 */
+        background-size: cover; /* 이미지가 요소를 덮도록 설정 */
+        
+        /* Flexbox로 자식 요소(이미지) 중앙 정렬 */
+        display: flex;
+        justify-content: center; /* 수평 중앙 정렬 */
+        align-items: center; /* 수직 중앙 정렬 */}
+
+
+
+    #content1 {width: 100%; overflow: hidden;}
+        
+        #content1 .article_right1 {float: left; width: 100%; height: 650px; background-color: #fd8c80; background: url(/img/focard.jpg); background-size:cover;}
+        /* #content1 .article_right2 {float: left; width: 66.6%; height: 300px; background-color: #fd8c80; background: url(/img/H.PNG); background-size:cover;} */
+        /* #content1 .article_right2 {float: left; width: 66.6%; height: 150px; background-color: #fc6b66;} */
+        
+
+    #content2 {overflow: hidden;}
+        #content2 .article_box4 {float: left; width: 25%; height: 500px; background-color: #cfcfcf; background: url(/img/A.PNG); background-size: cover;} 
+        #content2 .article_box1 {float: left; width: 25%; height: 500px; background-color: #cfcfcf; background: url(/img/K.PNG); background-size: cover;}        
+        #content2 .article_box2 {float: left; width: 25%; height: 500px; background-color: #a0a0a0; background: url(/img/Q.PNG); background-size: cover;}
+        #content2 .article_box3 {float: left; width: 25%; height: 500px; background-color: #858585; background: url(/img/J.PNG); background-size: cover;}
+
+    #content3 {overflow: hidden; padding: 5%; background-color: #e9e9e9;}
+        #content3 .article_square1 {float: left; width: 33.3333%; margin: 0; height: 350px; border-radius: 5%;
+        background: url('/img/youtube.jpg'); background-size: cover;}
+        #content3 .article_square2 {float: left; width: 33.3333%; margin: 0; height: 250px; border-radius: 5%;
+            background: url('/img/instar.png'); background-size: cover;}
+            #content3 .article_square3 {float: left; width: 33.3333%; margin: 0; height: 350px; border-radius: 5%;
+                background: url('/img/tictok.png'); background-size: cover;}
+                
+
+        
+        
+    /* 화면 너비 0 ~ 1240px */
+    @media (max-width: 1240px){
+        #wrap {width: 100%;}
+        #content2 .article_box1 {width: 50%;}
+        #content2 .article_box2 {width: 50%;}
+        #content2 .article_box3 {width: 50%;}
+        #content3 .article_square1 {width: 31.333%;}
+        #content3 .article_square2 {width: 31.333%;}
+        #content3 .article_square3 {width: 31.333%;}
+        #content3 .article_square4 {display: none;}
+    }
+    /* 화면 너비 0 ~ 768px */
+    @media (max-width: 768px){
+        #content2 .article_box1 {width: 100%;}
+        #content2 .article_box2 {width: 100%;}
+        #content2 .article_box3 {width: 100%;}
+    }
+    /* 화면 너비 0 ~ 480px */
+    @media (max-width: 480px){
+        #content1 .nav {width: 100%; height: 200px;}
+        #content1 .article_right1 {width: 100%; height: 200px;}
+        #content1 .article_right2 {width: 100%; height: 200px;}
+        #content3 .article_square1 {width: 98%; border-radius: 5px;}
+        #content3 .article_square2 {width: 98%; border-radius: 5px;}
+        #content3 .article_square3 {width: 98%; border-radius: 5px;}
+    }
+
+    .falling-image {
+        position: absolute;
+        pointer-events: none; /* 마우스 이벤트 차단 */
+        animation: fall-animation 3s linear infinite;
+        }
+        
+        @keyframes fall-animation {
+        from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+        }
+        to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+        }
+        }

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체스 오프닝</title>
+    <link rel="stylesheet" href="/CSS/css/opening.css">
+    
+
+</head>
+<body>
+      <div class="bg" style="background-repeat: repeat;"></div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h2>체스 오프닝의 기본 목표</h2>
+    <ul>
+        <li><strong>중앙 장악:</strong> 기물(특히 폰과 나이트)을 중앙으로 이동하여 게임의 통제권을 잡습니다. e4, d4와 같은 폰 이동은 가장 일반적인 오프닝 수입니다.</li>
+        <li><strong>기물 전개:</strong> 기물을 빠르게 전개하여 킹을 안전하게 보호하고, 공격 기회를 만듭니다. 주로 나이트와 비숍을 먼저 이동시킵니다.</li>
+        <li><strong>킹 안전 확보:</strong> 캐슬링을 통해 킹을 안전하게 보호하고, 공격을 준비합니다. 보통 킹사이드로 캐슬링을 많이 합니다.</li>
+        <li><strong>상대 기물 공격 방지:</strong> 상대의 오프닝 공격이나 함정을 피하는 전략을 준비해야 합니다.</li>
+    </ul>
+
+    <h2>체스에서 유명한 오프닝</h2>
+    
+    <h3>이탈리아 오프닝 (Italian Game)</h3>
+    <p>1.e4 e5 2.Nf3 Nc6 3.Bc4</p>
+    <p>초반에 비숍을 c4에 배치하여 중앙 장악과 함께 킹 사이드를 빠르게 전개합니다.</p>
+    
+    <h3>스페인 오프닝 (Ruy Lopez)</h3>
+    <p>1.e4 e5 2.Nf3 Nc6 3.Bb5</p>
+    <p>비숍을 b5에 배치해 상대의 나이트를 견제하며 공격을 준비하는 오프닝입니다. 가장 유명하고 연구된 오프닝 중 하나입니다.</p>
+
+    <h3>시실리안 디펜스 (Sicilian Defense)</h3>
+    <p>1.e4 c5</p>
+    <p>흑의 주요 방어 전략으로, e4에 대한 직접적인 공격을 피하고, 흑이 주도적으로 반격을 노리는 오프닝입니다.</p>
+
+    <h3>퀸즈 갬빗 (Queen’s Gambit)</h3>
+    <p>1.d4 d5 2.c4</p>
+    <p>백이 초반에 폰을 희생하며 중앙 장악을 노리는 오프닝입니다. 흑이 c4의 폰을 먹느냐, 아니면 방어하느냐에 따라 여러 가지 변형이 발생합니다.</p>
+
+    <h3>카로-칸 디펜스 (Caro-Kann Defense)</h3>
+    <p>1.e4 c6</p>
+    <p>흑이 c6으로 폰을 이동하여 중앙을 방어하면서, 안정적으로 기물을 전개하려는 전략입니다.</p>
+
+    <h3>프렌치 디펜스 (French Defense)</h3>
+    <p>1.e4 e6</p>
+    <p>흑이 e6으로 폰을 이동하여 d5를 준비하고, 중앙에서의 백의 공격을 견제하는 방어 전략입니다.</p>
+
+    <h2>오프닝에서 피해야 할 함정</h2>
+    <h3>그리스의 선물 (Scholar’s Mate)</h3>
+    <p>백이 퀸과 비숍을 이용해 흑의 킹 사이드를 빠르게 공격하는 전략으로, 4수 만에 체크메이트를 할 수 있는 함정입니다. 이를 방지하기 위해 기물을 신중하게 전개해야 합니다.</p>
+
+    <h3>단순한 기물 전개</h3>
+    <p>지나치게 기물의 전개를 무시하고, 상대의 폰을 무리하게 먹거나, 퀸을 일찍 꺼내서 상대의 공격에 노출되는 것은 위험합니다.</p>
+
+    <h2>체스 오프닝에 대한 팁</h2>
+    <ul>
+        <li>기물을 빠르게 전개하고 킹을 캐슬링으로 안전하게 보호하는 것이 중요합니다.</li>
+        <li>게임 초반에 폰을 지나치게 많이 움직이는 것보다, 폰을 사용해 중앙을 장악하고 다른 기물을 적절히 배치하는 것이 좋습니다.</li>
+        <li>상대의 오프닝 전략을 예상하고, 함정에 빠지지 않도록 주의해야 합니다.</li>
+    </ul>
+    <div class="custom-cursor" id="cursor"></div>
+
+
+    <!-- 스크립트: 마우스 움직임에 따른 체스 기물 생성 -->
+    <script>
+        const cursor = document.getElementById('cursor');
+
+
+        // 마우스 클릭 시 포인터 색상 변경
+        document.addEventListener('mousedown', () => {
+            cursor.style.backgroundColor = '#00ff00'; // 클릭 시 색상: 초록색
+        });
+
+        // 마우스 클릭 해제 시 원래 색상으로 돌아감
+        document.addEventListener('mouseup', () => {
+            cursor.style.backgroundColor = '#ff0000'; // 기본 색상: 빨간색
+        });
+
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.pageX - 3 + 'px';
+            cursor.style.top = e.pageY + 2 + 'px';
+        });
+
+        document.addEventListener('click', (e) => {
+            e.stopPropagation(); // 클릭 이벤트가 버블링되지 않도록 설정
+        });
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let idleInterval;
+        let lastMoveTime = 0;
+
+        const chessPieces = ['king', 'queen', 'rook', 'bishop', 'knight'];
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+
+            const now = Date.now();
+            if (now - lastMoveTime > 200) {
+                createChessPiece();
+                lastMoveTime = now;
+            }
+
+            resetIdleInterval();
+        });
+
+        function resetIdleInterval() {
+            clearInterval(idleInterval);
+            idleInterval = setInterval(() => {
+                createChessPiece();
+            }, 7000); // 7초로 설정
+        }
+
+        function createChessPiece() {
+            const piece = document.createElement('div');
+            const pieceType = chessPieces[Math.floor(Math.random() * chessPieces.length)];
+            piece.classList.add('chess-piece', pieceType);
+
+            const randomRotation = (Math.random() * 1440 - 720) + 'deg';
+            piece.style.setProperty('--rotation-angle', randomRotation);
+
+            document.body.appendChild(piece);
+            piece.style.left = `${mouseX}px`;
+            piece.style.top = `${mouseY}px`;
+
+            setTimeout(() => {
+                piece.style.opacity = '1';
+                piece.style.animation = 'fall 2s forwards';
+                checkPiecePosition(piece);
+                piece.addEventListener('animationend', () => {
+                    piece.remove();
+                });
+                
+            }, 200);
+        }
+        function checkPiecePosition(piece) {
+            function check() {
+                const pieceRect = piece.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+
+                if (pieceRect.top > windowHeight - 90) { // 기물이 화면 하단에 도달했는지 확인
+                    piece.remove(); // 기물을 삭제
+                } else {
+                    requestAnimationFrame(check); // 계속해서 위치를 확인
+                }
+            }
+
+            requestAnimationFrame(check); // 최초 호출
+        }
+        
+    </script>
+
+</body>
+</html>

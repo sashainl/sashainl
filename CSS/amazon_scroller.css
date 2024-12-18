@@ -1,0 +1,64 @@
+
+/* cont4 좌우롤링 안에 들어가는 css들 */
+#amazon_scroller1 {
+    height: fit-content !important;
+}
+
+
+.amazon_scroller {
+	position: absolute; top:280px; left: 140px;
+	float: left;
+	width: 3000px; height: 0px;
+	z-index: 11;
+}
+
+.amazon_scroller .amazon_scroller_nav li{
+    cursor: pointer;
+}
+
+.amazon_scroller .amazon_scroller_mask{
+    position: absolute; left: 0px;
+	height: 400px !important;
+	min-height: 400px;
+    overflow: hidden;
+	margin: 0px 0px;
+	border: red solid 0px;
+}
+
+.amazon_scroller ul li{
+    padding: 0px;
+	/* 여기 밑에 왼쪽 오른쪽은 카드 간 간격*/
+	margin-left: 4px;
+    margin-right: 28px;
+	list-style: none;
+    float: left;    
+}
+.amazon_scroller ul li:hover{
+    background-color: rgb(0, 162, 170);
+	opacity: .8;
+	transition: all 0.4s;
+} 
+/* .amazon_scroller ul li a{
+    text-decoration: none;
+}
+
+.amazon_scroller ul li a:hover{
+}
+.amazon_scroller ul li a img{
+    border: none;
+}*/
+
+
+
+/* 좌우 롤링 버튼 */
+.roling_left {z-index: 1;
+	position: absolute;
+	top: 150px;
+}
+.roling_left:hover {background:url('../img/roling_left_over.png') no-repeat 0 0;transition:all 0.4s; z-index: 2;}
+
+.roling_right { z-index: 1;
+	position: absolute;
+	top: 150px; left: 1569px;
+}
+.roling_right:hover {background:url('../img/roling_right_over.png') no-repeat 0 0;transition:all 0.4s; z-index: 2;}

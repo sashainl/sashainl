@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/slider.js"></script>
+    <title>나의 포트폴리오2024_조현준</title>
+    <style>
+      /* 눈 내리는 효과 */
+      .snow {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: #fff;
+        animation: snowfall 5s linear infinite;
+    }
+
+      @keyframes snowfall {
+          to {transform: translateY(100vh);}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header>
+          <h3>2024 웹표준 수업 과제물 정리_조현준</h3>          
+      </header>
+
+      <nav class="menu">
+        <ul>
+          <li><a href="https://www.figma.com/proto/tC7R2B06Lxs6fkkzmIzuKe/%ED%94%BC%EA%B7%B8%EB%A7%88-%EA%B8%B0%EC%B4%88-%EC%9E%91%EC%97%85-%EB%B0%8F-%EB%AA%A8%EB%B0%94%EC%9D%BC%EC%95%B1-%EC%A0%9C%EC%9E%91_202410_%EA%B3%B5%EC%9C%A0?node-id=119-431&t=d8DWNWINnGEvQrQM-0&scaling=scale-down&content-scaling=fixed&page-id=67%3A97&starting-point-node-id=119%3A431" target="_blank">모바일앱 UIUX </a></li>
+          <li><a href="https://www.figma.com/proto/KvXWxUdB9aY3xuBeETdt6U/%EC%84%A4%EB%B9%99--%EC%A1%B0%ED%98%84%EC%A4%80%2C-%EC%84%9C%EC%98%88%EB%82%98%2C-%EC%9D%B4%EA%B8%B0%ED%95%9C?node-id=40000195-1172&p=f&t=VxqtKGtIOC9QRKAa-0&scaling=min-zoom&content-scaling=fixed&page-id=2036%3A878" target="_blank">웹사이트 UI </a></li>
+          <li><a href="Chess.html" target="_blank">Chess </a></li>
+          <li><a href="ADIDAS.html" target="_blank">ADIDAS</a></li>
+          <li><a href="NIKE.html" target="_blank">NIKE</a></li>
+          <li><a href="MEDIA.html" target="_blank">미디어쿼리(반응형)</a></li>
+          
+        </ul>
+      </nav>
+
+      <main>
+        <div class="slider-container">
+          <button class="nav-button left">&#8249;</button>
+          <div class="slider-track">
+            <div class="slide"><img src="/img/chess_main.PNG" alt="Image 1"></div>
+            <div class="slide"><img src="/img/adidas_main1.PNG" alt="Image 2"></div>
+            <div class="slide"><img src="/img/nike_main.PNG" alt="Image 3"></div>
+            <div class="slide"><img src="/img/poker_main.PNG" alt="Image 4"></div>
+          </div>
+          <button class="nav-button right">&#8250;</button>
+        </div>
+      </main>
+      
+
+      <footer>
+        maded by 조현준 in 2024. &nbsp;&nbsp;&nbsp; HP 010-5386-9002 &nbsp;&nbsp;&nbsp;  email : whguswns0202@gmail.com
+      </footer>
+
+      <script>
+        // 이 부분은 필요에 따라 조절 가능
+          document.addEventListener("mousemove", (event) => {
+          createSnowflake(event.clientX, event.clientY);
+        });
+
+        function createSnowflake(x, y) {
+            const snowflake = document.createElement("div");
+            snowflake.className = "snow";
+            snowflake.style.left = `${x}px`;
+            snowflake.style.top = `${y}px`;
+            document.body.appendChild(snowflake);
+
+            // 눈 하나가 떨어진 후 제거
+            snowflake.addEventListener("animationiteration", () => {
+                snowflake.remove();
+            });
+        }
+      </script>
+
+    </div>
+  </body>
+</html>
